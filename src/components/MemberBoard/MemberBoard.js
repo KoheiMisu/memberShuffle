@@ -1,0 +1,75 @@
+import React, { Component, PropTypes } from 'react'
+import {Table, TableBody, TableRow, TableHeader, TableHeaderColumn} from 'material-ui/Table';
+import {Card, CardHeader} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import Member from './Member';
+
+
+
+const style = {
+    paddingLeft: 50,
+    width: 500,
+    display: 'flex'
+};
+
+const inputStyle = {
+    paddingLeft: 24,
+    paddingTop: 10,
+};
+
+
+export default class MemberBoard extends React.Component {
+
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    handleAddMember = (event, value) => {
+        if (event.which === 13) {
+            this.props.addMember(event.target.value);
+            event.target.value = '';
+        }
+    };
+
+    render () {
+        // console.log(this.props.members);
+        return (
+            <div>
+                <div style={style}>
+                    <Card>
+                        <CardHeader
+                            title="Lunch Members"
+                        />
+                        <TextField
+                            onKeyPress={this.handleAddMember}
+                            hintText="Input And Press Enter!"
+                            floatingLabelText="Add Member"
+                            errorText=""
+                            style={inputStyle}
+                        />
+                        <Table>
+                            <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+                                <TableRow>
+                                    <TableHeaderColumn>Name</TableHeaderColumn>
+                                    <TableHeaderColumn>absent or present</TableHeaderColumn>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody
+                                showRowHover={true}
+                                displayRowCheckbox={false}
+                            >
+                                {this.props.members.map((member, key) =>
+                                    <Member key={key} name={member.name}/>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </Card>
+                </div>
+            </div>
+        );
+    }
+}
+
+MemberBoard.propTypes = {
+    addMember: PropTypes.func.isRequired,
+};
