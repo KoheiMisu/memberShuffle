@@ -12,7 +12,6 @@ injectTapEventPlugin();
 const initialState = {members: [], groups: []};
 
 let store = configureStore(initialState);
-// let store = configureStore();
 
 const App = () => (
     <Provider store={store}>
