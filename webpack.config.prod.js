@@ -1,4 +1,3 @@
-var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
