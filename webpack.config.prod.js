@@ -1,5 +1,3 @@
-var HtmlwebpackPlugin = require('html-webpack-plugin');
-
 module.exports = {
     // ビルドに含めるファイルを格納するディレクトリ
     entry: './src/index.js',
@@ -22,12 +20,5 @@ module.exports = {
                 loader: 'style!css'
             }
         ]
-    },
-
-    plugins: [
-        // 生成するHTMLの設定
-        new HtmlwebpackPlugin({
-            title: 'shuffle'
-        })
-    ]
+    }
 };

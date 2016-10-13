@@ -32,7 +32,6 @@ export default class MemberBoard extends React.Component {
     };
 
     render () {
-        // console.log(this.props.members);
         return (
             <div>
                 <div style={style}>
@@ -59,7 +58,11 @@ export default class MemberBoard extends React.Component {
                                 displayRowCheckbox={false}
                             >
                                 {this.props.members.map((member, key) =>
-                                    <Member key={key} name={member.name}/>
+                                    <Member
+                                        key={key}
+                                        member={member}
+                                        changePresent = {this.props.changePresent}
+                                    />
                                 )}
                             </TableBody>
                         </Table>

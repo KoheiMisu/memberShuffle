@@ -1,3 +1,5 @@
+import _ from 'underscore';
+
 const member = (state = {}, action) => {
     switch (action.type) {
 
@@ -14,36 +16,45 @@ const member = (state = {}, action) => {
 const mockMembers = [
     {
         name: 'misu',
+        present: false
     },
     {
-        name: 'sam'
+        name: 'sam',
+        present: true
     },
     {
-        name: 'suemitsu'
+        name: 'suemitsu',
+        present: true
     },
     {
-        name: 'jindo'
+        name: 'jindo',
+        present: true
     },
     {
-        name: 'nitta'
+        name: 'nitta',
+        present: true
     },
     {
-        name: 'fukunishi'
+        name: 'fukunishi',
+        present: true
     },
     {
-        name: 'matsuo'
+        name: 'matsuo',
+        present: true
     },
     {
-        name: 'kuwata'
+        name: 'kuwata',
+        present: true
     },
     {
-        name: 'takada'
+        name: 'takada',
+        present: true
     },
     {
-        name: 'ozawa'
+        name: 'ozawa',
+        present: true
     }
 ];
-
 
 const members = (state = [], action) => {
     switch (action.type) {
@@ -57,9 +68,17 @@ const members = (state = [], action) => {
         case 'FETCH_MEMBER':
             return mockMembers;
 
-        // case 'DIVIDE_MEMBER':
-        //     console.log(state);
-        //     return mockMembers;
+        case 'CHANGE_PRESENT':
+
+            return _.map(state, (member) => {
+
+                if (member.name === action.member.name) {
+                    member.present = !action.member.present;
+                    return member;
+                }
+
+                return member;
+            });
 
         default:
             return state

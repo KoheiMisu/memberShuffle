@@ -33,19 +33,17 @@ export default class Group extends React.Component {
     }
 
     render () {
-        let members = [];
-        for (let i=0; i < this.props.group.length; i++) {
-            members.push(<p key={i}><span style={{paddingLeft: 10}}>{this.props.group[i].name}</span></p>);
-        }
-
-        let colorIndex = Math.floor( Math.random() * (colors.length) );
 
         return (
             <div>
                 <div style={style}>
-                    <Card style={{width: 100, backgroundColor: colors[colorIndex]}}>
+                    <Card style={{width: 100, backgroundColor: colors[Math.floor( Math.random() * (colors.length) )]}}>
                         <div>
-                            {members}
+                            {
+                                Array.from(this.props.group).map((group, key) =>
+                                    <p key={key}><span style={{paddingLeft: 10}}>{group.name}</span></p>
+                                )
+                            }
                         </div>
                     </Card>
                 </div>

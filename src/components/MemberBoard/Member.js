@@ -10,21 +10,26 @@ const styles = {
 
 export default class Member extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props, context) {
+        super(props, context);
     }
+
+    handleToggle = (event, value) => {
+        this.props.changePresent(this.props.member);
+    };
 
     render () {
         return (
             <TableRow>
                 <TableRowColumn>
-                    {this.props.name}
+                    {this.props.member.name}
                 </TableRowColumn>
                 <TableRowColumn>
                     <Toggle
                         label=""
-                        defaultToggled={true}
+                        toggled={this.props.member.present}
                         style={styles.toggle}
+                        onToggle={this.handleToggle}
                     />
                 </TableRowColumn>
             </TableRow>

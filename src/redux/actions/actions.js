@@ -26,3 +26,10 @@ export const divideMember = (groupCount, members) => {
         members
     };
 };
+
+export const changePresent = (member) => {
+    return {
+        type: ActionTypes.CHANGE_PRESENT,
+        member
+    };
+};
