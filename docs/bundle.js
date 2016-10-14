@@ -41484,14 +41484,14 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            null,
-	                            Array.from(this.props.group).map(function (group, key) {
+	                            Array.from(this.props.group).map(function (member, key) {
 	                                return _react2.default.createElement(
 	                                    'p',
 	                                    { key: key },
 	                                    _react2.default.createElement(
 	                                        'span',
 	                                        { style: { paddingLeft: 10 } },
-	                                        group.name
+	                                        member.name
 	                                    )
 	                                );
 	                            })
@@ -43641,26 +43641,38 @@
 
 /***/ },
 /* 447 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _underscore = __webpack_require__(446);
+
+	var _underscore2 = _interopRequireDefault(_underscore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	var shuffle = function shuffle(array) {
-	    var n = array.length,
+
+	    var members = _underscore2.default.filter(array, function (member) {
+	        return member.present;
+	    });
+
+	    var n = members.length,
 	        t = void 0,
 	        i = void 0;
 
 	    while (n) {
 	        i = Math.floor(Math.random() * n--);
-	        t = array[n];
-	        array[n] = array[i];
-	        array[i] = t;
+	        t = members[n];
+	        members[n] = members[i];
+	        members[i] = t;
 	    }
 
-	    return array;
+	    return members;
 	};
 
 	var groups = function groups() {

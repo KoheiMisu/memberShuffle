@@ -1,14 +1,21 @@
+import _ from 'underscore';
+
 const shuffle = (array) => {
-    let n = array.length, t, i;
+
+    let members = _.filter(array, (member) => {
+        return member.present;
+    });
+
+    let n = members.length, t, i;
 
     while (n) {
         i = Math.floor(Math.random() * n--);
-        t = array[n];
-        array[n] = array[i];
-        array[i] = t;
+        t = members[n];
+        members[n] = members[i];
+        members[i] = t;
     }
 
-    return array;
+    return members;
 };
 
 const groups = (state = [], action) => {

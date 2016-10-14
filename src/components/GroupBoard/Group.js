@@ -40,8 +40,8 @@ export default class Group extends React.Component {
                     <Card style={{width: 100, backgroundColor: colors[Math.floor( Math.random() * (colors.length) )]}}>
                         <div>
                             {
-                                Array.from(this.props.group).map((group, key) =>
-                                    <p key={key}><span style={{paddingLeft: 10}}>{group.name}</span></p>
+                                Array.from(this.props.group).map((member, key) =>
+                                    <p key={key}><span style={{paddingLeft: 10}}>{member.name}</span></p>
                                 )
                             }
                         </div>
