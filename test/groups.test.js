@@ -16,7 +16,7 @@ describe('groups Reducer', function() {
     describe('filterMembers()', () => {
         test('filterMembers()', () => {
             let result = filterMembers(mockMembers);
-            expect(result.length).toBe(1);
+            expect(result[0].name).toBe('planet');
         });
     })
 });

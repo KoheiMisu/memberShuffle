@@ -14,6 +14,7 @@ const style = {
 const groupStyle = {
     display: 'flex',
     flexWrap: 'wrap',
+    zIndex: 0
 };
 
 const textStyle = {

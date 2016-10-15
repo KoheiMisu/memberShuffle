@@ -6,7 +6,8 @@ import Draggable from 'react-draggable';
 const style = {
     paddingTop: 20,
     paddingLeft: 50,
-    display: 'flex'
+    display: 'flex',
+    zIndex: 0
 };
 
 const colors = [
@@ -30,6 +31,15 @@ export default class Group extends React.Component {
 
     constructor(props, context) {
         super(props, context);
+        this.state = {zIndex: 1};
+    }
+
+    handleDrag = () => {
+        this.setState({ zIndex: 100});
+    }
+
+    handleStop = () => {
+        this.setState({ zIndex: 1000});
     }
 
     render () {
@@ -40,21 +50,23 @@ export default class Group extends React.Component {
                     <Card
                         style={{
                             width: 100,
-                            backgroundColor: colors[Math.floor( Math.random() * (colors.length) )],
+                            backgroundColor: colors[Math.floor(Math.random() * (colors.length))],
+                            zIndex: 0
                         }}
                     >
-                        <div>
-                            {
-                                Array.from(this.props.group).map((member, key) =>
-                                    <Draggable
-                                        key={key}
-                                        zIndex={100}
-                                    >
+                        {
+                            Array.from(this.props.group).map((member, key) =>
+                                <Draggable
+                                    key={key}
+                                    onDrag={this.handleDrag}
+                                    onStop={this.handleStop}
+                                >
+                                    <div style={{zIndex:this.state.zIndex}}>
                                         <p><span style={{paddingLeft: 10}}>{member.name}</span></p>
-                                    </Draggable>
-                                )
-                            }
-                        </div>
+                                    </div>
+                                </Draggable>
+                            )
+                        }
                     </Card>
                 </div>
             </div>
