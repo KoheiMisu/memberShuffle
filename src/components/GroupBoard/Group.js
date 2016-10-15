@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from 'material-ui/Card';
-
+import Draggable from 'react-draggable';
 
 
 const style = {
@@ -37,11 +37,21 @@ export default class Group extends React.Component {
         return (
             <div>
                 <div style={style}>
-                    <Card style={{width: 100, backgroundColor: colors[Math.floor( Math.random() * (colors.length) )]}}>
+                    <Card
+                        style={{
+                            width: 100,
+                            backgroundColor: colors[Math.floor( Math.random() * (colors.length) )],
+                        }}
+                    >
                         <div>
                             {
                                 Array.from(this.props.group).map((member, key) =>
-                                    <p key={key}><span style={{paddingLeft: 10}}>{member.name}</span></p>
+                                    <Draggable
+                                        key={key}
+                                        zIndex={100}
+                                    >
+                                        <p><span style={{paddingLeft: 10}}>{member.name}</span></p>
+                                    </Draggable>
                                 )
                             }
                         </div>

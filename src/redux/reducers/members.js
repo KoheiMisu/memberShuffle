@@ -23,35 +23,35 @@ const mockMembers = [
         present: true
     },
     {
-        name: 'suemitsu',
+        name: 'joe',
         present: true
     },
     {
-        name: 'jindo',
+        name: 'michael',
         present: true
     },
     {
-        name: 'nitta',
+        name: 'keel',
         present: true
     },
     {
-        name: 'fukunishi',
+        name: 'spark',
         present: true
     },
     {
-        name: 'matsuo',
+        name: 'right',
         present: true
     },
     {
-        name: 'kuwata',
+        name: 'moon',
         present: true
     },
     {
-        name: 'takada',
+        name: 'sun',
         present: true
     },
     {
-        name: 'ozawa',
+        name: 'planet',
         present: true
     }
 ];

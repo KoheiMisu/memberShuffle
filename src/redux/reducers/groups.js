@@ -1,10 +1,8 @@
 import _ from 'underscore';
 
-const shuffle = (array) => {
+export const shuffle = (array) => {
 
-    let members = _.filter(array, (member) => {
-        return member.present;
-    });
+    let members = filterMembers(array);
 
     let n = members.length, t, i;
 
@@ -16,6 +14,14 @@ const shuffle = (array) => {
     }
 
     return members;
+};
+
+export const filterMembers = (members) => {
+    let result = _.filter(members, (member) => {
+        return member.present;
+    });
+
+    return result;
 };
 
 const groups = (state = [], action) => {

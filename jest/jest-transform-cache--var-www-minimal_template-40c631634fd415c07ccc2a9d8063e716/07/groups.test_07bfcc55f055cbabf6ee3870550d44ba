@@ -1,0 +1,22 @@
+/* istanbul ignore next */'use strict';var /* istanbul ignore next */_groups = require('../src/redux/reducers/groups');
+
+
+var mockMembers = [
+{
+    name: 'misu',
+    present: false },
+
+{
+    name: 'planet',
+    present: true }];
+
+
+
+describe('groups Reducer', function () {
+    describe('filterMembers()', function () {
+        test('filterMembers()', function () {
+            var result = /* istanbul ignore next */(0, _groups.filterMembers)(mockMembers);
+            expect(result.length).toBe(1);
+        });
+    });
+});
