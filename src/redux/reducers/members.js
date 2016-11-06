@@ -1,4 +1,6 @@
 import _ from 'underscore';
+import cuid from 'cuid';
+import qs from 'query-string';
 
 const member = (state = {}, action) => {
     switch (action.type) {
@@ -12,6 +14,24 @@ const member = (state = {}, action) => {
             return state
     }
 };
+
+const setCollectionId = (cId) => {
+    let param = `?cid=${cId}`;
+    window.history.replaceState('', '', param);
+};
+
+const getCId = () => {
+    const queryString = qs.parse(location.search);
+
+    if ('cid' in queryString) {
+        return queryString['cid'];
+    }
+
+    const cId = cuid();
+
+    setCollectionId(cId);
+    return cId;
+}
 
 const mockMembers = [
     {
@@ -66,6 +86,12 @@ const members = (state = [], action) => {
                 ];
 
         case 'FETCH_MEMBER':
+
+            const cId = getCId();
+
+
+
+
             return mockMembers;
 
         case 'CHANGE_PRESENT':
