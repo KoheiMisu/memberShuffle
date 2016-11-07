@@ -1,37 +1,21 @@
 import _ from 'underscore';
 import cuid from 'cuid';
 import qs from 'query-string';
+import 'whatwg-fetch';
 
 const member = (state = {}, action) => {
     switch (action.type) {
 
         case 'ADD_MEMBER':
             return {
-                name: action.name
+                name: action.name,
+                present: true
             };
 
         default:
             return state
     }
 };
-
-const setCollectionId = (cId) => {
-    let param = `?cid=${cId}`;
-    window.history.replaceState('', '', param);
-};
-
-const getCId = () => {
-    const queryString = qs.parse(location.search);
-
-    if ('cid' in queryString) {
-        return queryString['cid'];
-    }
-
-    const cId = cuid();
-
-    setCollectionId(cId);
-    return cId;
-}
 
 const mockMembers = [
     {
@@ -87,12 +71,7 @@ const members = (state = [], action) => {
 
         case 'FETCH_MEMBER':
 
-            const cId = getCId();
-
-
-
-
-            return mockMembers;
+            return [action.members];
 
         case 'CHANGE_PRESENT':
 
