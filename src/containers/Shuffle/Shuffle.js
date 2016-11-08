@@ -2,7 +2,7 @@ import React from 'react';
 import MemberBoard from '../../components/MemberBoard/MemberBoard';
 import GroupBoard from '../../components/GroupBoard/GroupBoard';
 import { connect } from 'react-redux';
-import { addMember, fetchMembers, divideMember, changePresent} from '../../redux/actions/actions'
+import { addMembers, fetchMembers, divideMember, changePresent} from '../../redux/actions/actions'
 
 
 const style = {
@@ -21,7 +21,7 @@ export default class Shuffle extends React.Component {
     }
 
     addMember (name) {
-        this.props.dispatch(addMember(name));
+        this.props.dispatch(addMembers(name));
     }
 
     createGroup (groupCount) {

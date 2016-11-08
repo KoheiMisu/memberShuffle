@@ -3,10 +3,10 @@ import cuid from 'cuid';
 import qs from 'query-string';
 import 'whatwg-fetch';
 
-export const addMember = (name) => {
+export const addMember = (member) => {
     return {
         type: ActionTypes.ADD_MEMBER,
-        name
+        member
     };
 };
 
@@ -39,27 +39,49 @@ export const fetchMembers = () => {
         return fetch(`http://localhost:5000/api/v1/members?cId=${cId}`, {
             mode: 'cors',
         })
-            .then(checkStatus)
-            .then(parseJSON)
-            .then((data) => {
-                console.log(data);
-                dispatch(fetchMember(data));
-            }).catch((error) => {
+        .then(checkStatus)
+        .then(parseJSON)
+        .then((data) => {
+            dispatch(fetchMember(data));
+        }).catch((error) => {
             console.log('request failed', error)
         });
     }
-}
+};
+
+export const addMembers = (name) => {
+    const queryString = qs.parse(location.search);
+
+    const data = new FormData();
+    data.append("cId", queryString['cId']);
+    data.append("name", name);
+
+    return (dispatch) => {
+        return fetch('http://localhost:5000/api/v1/members', {
+                mode: 'cors',
+                method: 'Post',
+                body: data
+            })
+            .then(checkStatus)
+            .then(parseJSON)
+            .then((data) => {
+                dispatch(addMember(data));
+            }).catch((error) => {
+                console.log('request failed', error)
+            });
+    }
+};
 
 const setCollectionId = (cId) => {
-    let param = `?cid=${cId}`;
+    let param = `?cId=${cId}`;
     window.history.replaceState('', '', param);
 };
 
 const getCId = () => {
     const queryString = qs.parse(location.search);
 
-    if ('cid' in queryString) {
-        return queryString['cid'];
+    if ('cId' in queryString) {
+        return queryString['cId'];
     }
 
     const cId = cuid();
