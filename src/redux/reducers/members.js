@@ -28,7 +28,7 @@ const members = (state = [], action) => {
 
         case 'FETCH_MEMBER':
 
-            return [action.members];
+            return action.members;
 
         case 'CHANGE_PRESENT':
 
