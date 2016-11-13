@@ -1,21 +1,4 @@
 import _ from 'underscore';
-import cuid from 'cuid';
-import qs from 'query-string';
-import 'whatwg-fetch';
-
-const member = (state = {}, action) => {
-    switch (action.type) {
-
-        case 'ADD_MEMBER':
-            return {
-                name: action.name,
-                present: true
-            };
-
-        default:
-            return state
-    }
-};
 
 const members = (state = [], action) => {
     switch (action.type) {
@@ -23,7 +6,7 @@ const members = (state = [], action) => {
         case 'ADD_MEMBER':
             return [
                     action.member,
-                    ...state
+                    ...state,
                 ];
 
         case 'FETCH_MEMBER':
@@ -35,7 +18,7 @@ const members = (state = [], action) => {
             return _.map(state, (member) => {
 
                 if (member.name === action.member.name) {
-                    member.present = !action.member.present;
+                    member.present = action.member.present;
                     return member;
                 }
 

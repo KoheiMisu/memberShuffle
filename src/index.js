@@ -9,7 +9,7 @@ import configureStore from './redux/store/configureStore';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-const initialState = {members: [], groups: []};
+const initialState = {members: [], groups: [], inputError: ""};
 
 let store = configureStore(initialState);
 

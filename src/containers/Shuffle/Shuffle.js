@@ -2,7 +2,7 @@ import React from 'react';
 import MemberBoard from '../../components/MemberBoard/MemberBoard';
 import GroupBoard from '../../components/GroupBoard/GroupBoard';
 import { connect } from 'react-redux';
-import { addMembers, fetchMembers, divideMember, changePresent} from '../../redux/actions/actions'
+import { addMembers, fetchMembers, divideMember, changePresents} from '../../redux/actions/actions'
 
 
 const style = {
@@ -29,7 +29,7 @@ export default class Shuffle extends React.Component {
     }
 
     changePresent (member) {
-        this.props.dispatch(changePresent(member));
+        this.props.dispatch(changePresents(member));
     }
 
     render () {
@@ -40,6 +40,7 @@ export default class Shuffle extends React.Component {
                         addMember={this.addMember}
                         changePresent={this.changePresent}
                         members={this.props.members}
+                        inputError={this.props.inputError}
                     />
                     <GroupBoard
                         createGroup={this.createGroup}
@@ -63,7 +64,8 @@ export default class Shuffle extends React.Component {
 function mapStateToProps(state) {
     return {
         members: state.members,
-        groups: state.groups
+        groups: state.groups,
+        inputError: state.inputError
     };
 }
 

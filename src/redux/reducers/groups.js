@@ -1,8 +1,8 @@
 import _ from 'underscore';
 
-export const shuffle = (array) => {
+export const shuffle = (data) => {
 
-    let members = filterMembers(array);
+    let members = filterMembers(data);
 
     let n = members.length, t, i;
 

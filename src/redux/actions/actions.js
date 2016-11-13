@@ -3,7 +3,7 @@ import cuid from 'cuid';
 import qs from 'query-string';
 import 'whatwg-fetch';
 
-export const addMember = (member) => {
+const addMember = (member) => {
     return {
         type: ActionTypes.ADD_MEMBER,
         member
@@ -25,10 +25,17 @@ export const divideMember = (groupCount, members) => {
     };
 };
 
-export const changePresent = (member) => {
+const changePresent = (member) => {
     return {
         type: ActionTypes.CHANGE_PRESENT,
         member
+    };
+};
+
+const addError = (message) => {
+    return {
+        type: ActionTypes.ADD_ERROR,
+        message
     };
 };
 
@@ -41,15 +48,25 @@ export const fetchMembers = () => {
         })
         .then(checkStatus)
         .then(parseJSON)
-        .then((data) => {
-            dispatch(fetchMember(data));
-        }).catch((error) => {
+        .catch((error) => {
             console.log('request failed', error)
-        });
+        })
+        .then((data) => {
+            if (data === null) {
+                data = [];
+            }
+            dispatch(fetchMember(data));
+        })
     }
 };
 
 export const addMembers = (name) => {
+    if (!name) {
+        return (dispatch) => {
+            dispatch(addError('cannot insert empty value'));
+        }
+    }
+
     const queryString = qs.parse(location.search);
 
     const data = new FormData();
@@ -64,13 +81,43 @@ export const addMembers = (name) => {
             })
             .then(checkStatus)
             .then(parseJSON)
+            .catch((error) => {
+                console.log('request failed', error)
+            })
             .then((data) => {
-                dispatch(addMember(data));
+                if (data.result) {
+                    dispatch(addMember(data.member));
+                } else {
+                    dispatch(addError(data.message));
+                }
+            });
+    }
+};
+
+export const changePresents = (member) => {
+    const queryString = qs.parse(location.search);
+
+    const data = new FormData();
+    data.append("cId", queryString['cId']);
+    data.append("name", member.name);
+    data.append("present", !member.present);
+
+    return (dispatch) => {
+        return fetch('http://localhost:5000/api/v1/members', {
+                mode: 'cors',
+                method: 'Put',
+                body: data
+            })
+            .then(checkStatus)
+            .then(parseJSON)
+            .then((data) => {
+                dispatch(changePresent(data));
             }).catch((error) => {
                 console.log('request failed', error)
             });
     }
 };
+
 
 const setCollectionId = (cId) => {
     let param = `?cId=${cId}`;

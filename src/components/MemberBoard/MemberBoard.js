@@ -43,7 +43,7 @@ export default class MemberBoard extends React.Component {
                             onKeyPress={this.handleAddMember}
                             hintText="Input And Press Enter!"
                             floatingLabelText="Add Member"
-                            errorText=""
+                            errorText={this.props.inputError}
                             style={inputStyle}
                         />
                         <Table>

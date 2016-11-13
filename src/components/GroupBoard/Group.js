@@ -34,10 +34,6 @@ export default class Group extends React.Component {
         this.state = {zIndex: 1};
     }
 
-    handleDrag = () => {
-        this.setState({ zIndex: 100});
-    }
-
     handleStop = () => {
         this.setState({ zIndex: 1000});
     }
@@ -58,7 +54,6 @@ export default class Group extends React.Component {
                             Array.from(this.props.group).map((member, key) =>
                                 <Draggable
                                     key={key}
-                                    onDrag={this.handleDrag}
                                     onStop={this.handleStop}
                                 >
                                     <div style={{zIndex:this.state.zIndex}}>

@@ -2417,7 +2417,7 @@
 	      RESERVED_SPEC_KEYS[name](Constructor, property);
 	    } else {
 	      // Setup methods on prototype:
-	      // The following member methods should not be automatically bound:
+	      // The following controllers methods should not be automatically bound:
 	      // 1. Expected ReactClass methods (in the "interface").
 	      // 2. Overridden methods (that were mixed in).
 	      var isReactClassMethod = ReactClassInterface.hasOwnProperty(name);
@@ -16347,7 +16347,7 @@
 
 	/**
 	 * Executed within the scope of the `Transaction` instance. Consider these as
-	 * being member methods, but with an implied ordering while being isolated from
+	 * being controllers methods, but with an implied ordering while being isolated from
 	 * each other.
 	 */
 	var TRANSACTION_WRAPPERS = [];
@@ -18059,7 +18059,7 @@
 
 	/**
 	 * Executed within the scope of the `Transaction` instance. Consider these as
-	 * being member methods, but with an implied ordering while being isolated from
+	 * being controllers methods, but with an implied ordering while being isolated from
 	 * each other.
 	 */
 	var TRANSACTION_WRAPPERS = [SELECTION_RESTORATION, EVENT_SUPPRESSION, ON_DOM_READY_QUEUEING];
@@ -43264,7 +43264,7 @@
 	      // Ensure that both objects contain the same number of properties before comparing deep equality.
 	      if (_.keys(b).length !== length) return false;
 	      while (length--) {
-	        // Deep compare each member
+	        // Deep compare each controllers
 	        key = keys[length];
 	        if (!(_.has(b, key) && eq(a[key], b[key], aStack, bStack))) return false;
 	      }
