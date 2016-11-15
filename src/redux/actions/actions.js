@@ -2,6 +2,7 @@ import * as ActionTypes from '../constants/constants';
 import cuid from 'cuid';
 import qs from 'query-string';
 import 'whatwg-fetch';
+import * as asyncModule from '../../util/asyncModule';
 
 const addMember = (member) => {
     return {
@@ -46,8 +47,8 @@ export const fetchMembers = () => {
         return fetch(`http://localhost:5000/api/v1/members?cId=${cId}`, {
             mode: 'cors',
         })
-        .then(checkStatus)
-        .then(parseJSON)
+        .then(asyncModule.checkStatus)
+        .then(asyncModule.parseJSON)
         .catch((error) => {
             console.log('request failed', error)
         })
@@ -79,8 +80,8 @@ export const addMembers = (name) => {
                 method: 'Post',
                 body: data
             })
-            .then(checkStatus)
-            .then(parseJSON)
+            .then(asyncModule.checkStatus)
+            .then(asyncModule.parseJSON)
             .catch((error) => {
                 console.log('request failed', error)
             })
@@ -108,8 +109,8 @@ export const changePresents = (member) => {
                 method: 'Put',
                 body: data
             })
-            .then(checkStatus)
-            .then(parseJSON)
+            .then(asyncModule.checkStatus)
+            .then(asyncModule.parseJSON)
             .then((data) => {
                 dispatch(changePresent(data));
             }).catch((error) => {
@@ -135,18 +136,4 @@ const getCId = () => {
 
     setCollectionId(cId);
     return cId;
-};
-
-const checkStatus = (response) => {
-    if (response.status >= 200 && response.status < 300) {
-        return response;
-    } else {
-        let error = new Error(response.statusText);
-        error.response = response;
-        throw error;
-    }
-};
-
-const parseJSON = (response) => {
-    return response.json();
 };

@@ -2,6 +2,10 @@ import React, {PropTypes} from 'react';
 import {Card, CardHeader} from 'material-ui/Card';
 import Slider from 'material-ui/Slider';
 import RaisedButton from 'material-ui/RaisedButton';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
+import html2canvas from 'html2canvas';
+import 'whatwg-fetch';
+import * as asyncModule from '../../util/asyncModule';
 import Group from './Group';
 
 
@@ -14,7 +18,6 @@ const style = {
 const groupStyle = {
     display: 'flex',
     flexWrap: 'wrap',
-    zIndex: 0
 };
 
 const textStyle = {
@@ -35,15 +38,26 @@ export default class GroupBoard extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {sliderVal: 2};
+        this.state = {sliderVal: 2, isCreate: false};
     }
 
     handleSlider = (event, value) => {
         this.setState({sliderVal : value});
     };
 
-    handleCreateGroup = (event, value) => {
+    handleCreateGroup = () => {
         this.props.createGroup(this.state.sliderVal);
+        this.setState({isCreate: true});
+    };
+
+    handleCapture = () => {
+        const element = document.getElementById('groups');
+        const target = document.getElementById('download');
+        html2canvas(element).then(function(canvas) {
+            const imgData = canvas.toDataURL();
+            target.href = imgData;
+            target.click();
+        });
     };
 
     render () {
@@ -75,9 +89,20 @@ export default class GroupBoard extends React.Component {
                             fullWidth={true}
                             onClick={this.handleCreateGroup}
                         />
+                        <a id="download" href="#" download="capture.png"></a>
+                        {(() => {
+                            if (this.state.isCreate)
+                                return <RaisedButton
+                                        label="Save Capture !"
+                                        fullWidth={true}
+                                        style={{marginTop: 10}}
+                                        icon={<FileFileDownload />}
+                                        onClick={this.handleCapture}
+                                    />;
+                        })()}
                     </Card>
                 </div>
-                <div style={groupStyle}>
+                <div style={groupStyle} id="groups">
                     {this.props.groups.map((group, key) =>
                         <Group key={key} group={group}/>
                     )}

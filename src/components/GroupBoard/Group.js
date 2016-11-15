@@ -31,39 +31,28 @@ export default class Group extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {zIndex: 1};
-    }
-
-    handleStop = () => {
-        this.setState({ zIndex: 1000});
     }
 
     render () {
 
         return (
-            <div>
-                <div style={style}>
-                    <Card
-                        style={{
-                            width: 100,
-                            backgroundColor: colors[Math.floor(Math.random() * (colors.length))],
-                            zIndex: 0
-                        }}
-                    >
-                        {
-                            Array.from(this.props.group).map((member, key) =>
-                                <Draggable
-                                    key={key}
-                                    onStop={this.handleStop}
-                                >
-                                    <div style={{zIndex:this.state.zIndex}}>
-                                        <p><span style={{paddingLeft: 10}}>{member.name}</span></p>
-                                    </div>
-                                </Draggable>
-                            )
-                        }
-                    </Card>
-                </div>
+            <div style={style}>
+                <Card
+                    style={{
+                        width: 100,
+                        backgroundColor: colors[Math.floor(Math.random() * (colors.length))],
+                    }}
+                >
+                    {
+                        Array.from(this.props.group).map((member, key) =>
+                            <Draggable  key={key}>
+                                <div>
+                                    <p><span style={{paddingLeft: 10}}>{member.name}</span></p>
+                                </div>
+                            </Draggable>
+                        )
+                    }
+                </Card>
             </div>
         );
     }
