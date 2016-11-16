@@ -6,7 +6,7 @@ export default class Header extends React.Component {
     render () {
         return (
             <AppBar
-              title="MyApps"
+              title=""
               iconClassNameRight="muidocs-icon-navigation-expand-more"
             />
         );
