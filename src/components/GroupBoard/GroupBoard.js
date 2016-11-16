@@ -38,7 +38,7 @@ export default class GroupBoard extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {sliderVal: 2, isCreate: false};
+        this.state = {sliderVal: 2};
     }
 
     handleSlider = (event, value) => {
@@ -47,7 +47,6 @@ export default class GroupBoard extends React.Component {
 
     handleCreateGroup = () => {
         this.props.createGroup(this.state.sliderVal);
-        this.setState({isCreate: true});
     };
 
     handleCapture = () => {
@@ -91,7 +90,7 @@ export default class GroupBoard extends React.Component {
                         />
                         <a id="download" href="#" download="capture.png"></a>
                         {(() => {
-                            if (this.state.isCreate)
+                            if (this.props.groups.length)
                                 return <RaisedButton
                                         label="Save Capture !"
                                         fullWidth={true}
