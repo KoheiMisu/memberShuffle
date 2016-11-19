@@ -1,4 +1,5 @@
 import * as ActionTypes from '../constants/constants';
+import * as Env from '../../util/env';
 import cuid from 'cuid';
 import qs from 'query-string';
 import 'whatwg-fetch';
@@ -44,7 +45,7 @@ export const fetchMembers = () => {
     const cId = getCId();
 
     return (dispatch) => {
-        return fetch(`http://localhost:5000/api/v1/members?cId=${cId}`, {
+        return fetch(`${Env.HOST}/api/v1/members?cId=${cId}`, {
             mode: 'cors',
         })
         .then(asyncModule.checkStatus)
@@ -75,7 +76,7 @@ export const addMembers = (name) => {
     data.append("name", name);
 
     return (dispatch) => {
-        return fetch('http://localhost:5000/api/v1/members', {
+        return fetch(`${Env.HOST}/api/v1/members`, {
                 mode: 'cors',
                 method: 'Post',
                 body: data
@@ -104,7 +105,7 @@ export const changePresents = (member) => {
     data.append("present", !member.present);
 
     return (dispatch) => {
-        return fetch('http://localhost:5000/api/v1/members', {
+        return fetch(`${Env.HOST}/api/v1/members`, {
                 mode: 'cors',
                 method: 'Put',
                 body: data

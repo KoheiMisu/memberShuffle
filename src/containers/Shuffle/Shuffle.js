@@ -10,7 +10,7 @@ const style = {
     display: 'flex',
 };
 
-export default class Shuffle extends React.Component {
+export class Shuffle extends React.Component {
 
     constructor(props, context) {
         super(props, context);

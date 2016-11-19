@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from '../components/Common/Header';
 import Shuffle from './Shuffle/Shuffle';
 
-export default class Root extends React.Component {
+export class Root extends React.Component {
 
     constructor(props, context) {
         super(props, context);
@@ -21,7 +21,7 @@ export default class Root extends React.Component {
         );
     }
 
-}
+};
 
 // Wrap the component to inject dispatch and state into it
 export default connect()(Root);
