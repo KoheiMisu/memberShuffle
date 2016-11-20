@@ -1,0 +1,46 @@
+/* istanbul ignore next */'use strict';Object.defineProperty(exports, "__esModule", { value: true });exports.filterMembers = exports.shuffle = undefined;var /* istanbul ignore next */_underscore = require('underscore'); /* istanbul ignore next */var _underscore2 = _interopRequireDefault(_underscore);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var shuffle = /* istanbul ignore next */exports.shuffle = function shuffle(array) {
+
+    var members = filterMembers(array);
+
+    var n = members.length,t = /* istanbul ignore next */void 0,i = /* istanbul ignore next */void 0;
+
+    while (n) {
+        i = Math.floor(Math.random() * n--);
+        t = members[n];
+        members[n] = members[i];
+        members[i] = t;
+    }
+
+    return members;
+};
+
+var filterMembers = /* istanbul ignore next */exports.filterMembers = function filterMembers(members) {
+    var result = /* istanbul ignore next */_underscore2.default.filter(members, function (member) {
+        return member.present;
+    });
+
+    return result;
+};
+
+var groups = function groups() {/* istanbul ignore next */var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : []; /* istanbul ignore next */var action = arguments[1];
+    switch (action.type) {
+
+        case 'DIVIDE_MEMBER':
+
+            var members = shuffle(action.members);
+
+            var divideMember = [];
+            for (var i = 0; i < members.length; i += action.groupCount) {
+                divideMember.push(members.slice(i, i + action.groupCount));
+            }
+
+            return divideMember;
+
+        default:
+            return state;}
+
+}; /* istanbul ignore next */exports.default =
+
+groups;

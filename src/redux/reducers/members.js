@@ -1,65 +1,35 @@
-const member = (state = {}, action) => {
-    switch (action.type) {
-
-        case 'ADD_MEMBER':
-            return {
-                name: action.name
-            };
-
-        default:
-            return state
-    }
-};
-
-const mockMembers = [
-    {
-        name: 'misu',
-    },
-    {
-        name: 'sam'
-    },
-    {
-        name: 'suemitsu'
-    },
-    {
-        name: 'jindo'
-    },
-    {
-        name: 'nitta'
-    },
-    {
-        name: 'fukunishi'
-    },
-    {
-        name: 'matsuo'
-    },
-    {
-        name: 'kuwata'
-    },
-    {
-        name: 'takada'
-    },
-    {
-        name: 'ozawa'
-    }
-];
-
+import _ from 'underscore';
 
 const members = (state = [], action) => {
     switch (action.type) {
 
         case 'ADD_MEMBER':
             return [
-                    member(undefined, action),
-                    ...state
+                    action.member,
+                    ...state,
                 ];
 
         case 'FETCH_MEMBER':
-            return mockMembers;
 
-        // case 'DIVIDE_MEMBER':
-        //     console.log(state);
-        //     return mockMembers;
+            return action.members;
+
+        case 'CHANGE_PRESENT':
+
+            return _.map(state, (member) => {
+
+                if (member.name === action.member.name) {
+                    member.present = action.member.present;
+                    return member;
+                }
+
+                return member;
+            });
+
+        case 'DELETE_MEMBER':
+
+            return _.filter(state, (member) => {
+                return member.name !== action.member.name;
+            });
 
         default:
             return state

@@ -4,8 +4,6 @@ import {Card, CardHeader} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import Member from './Member';
 
-
-
 const style = {
     paddingLeft: 50,
     width: 500,
@@ -32,7 +30,6 @@ export default class MemberBoard extends React.Component {
     };
 
     render () {
-        // console.log(this.props.members);
         return (
             <div>
                 <div style={style}>
@@ -44,7 +41,7 @@ export default class MemberBoard extends React.Component {
                             onKeyPress={this.handleAddMember}
                             hintText="Input And Press Enter!"
                             floatingLabelText="Add Member"
-                            errorText=""
+                            errorText={this.props.inputError}
                             style={inputStyle}
                         />
                         <Table>
@@ -52,6 +49,7 @@ export default class MemberBoard extends React.Component {
                                 <TableRow>
                                     <TableHeaderColumn>Name</TableHeaderColumn>
                                     <TableHeaderColumn>absent or present</TableHeaderColumn>
+                                    <TableHeaderColumn>operation</TableHeaderColumn>
                                 </TableRow>
                             </TableHeader>
                             <TableBody
@@ -59,7 +57,11 @@ export default class MemberBoard extends React.Component {
                                 displayRowCheckbox={false}
                             >
                                 {this.props.members.map((member, key) =>
-                                    <Member key={key} name={member.name}/>
+                                    <Member
+                                        key={key}
+                                        member={member}
+                                        changePresent = {this.props.changePresent}
+                                    />
                                 )}
                             </TableBody>
                         </Table>

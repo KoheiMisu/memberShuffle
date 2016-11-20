@@ -2,6 +2,10 @@ import React, {PropTypes} from 'react';
 import {Card, CardHeader} from 'material-ui/Card';
 import Slider from 'material-ui/Slider';
 import RaisedButton from 'material-ui/RaisedButton';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
+import html2canvas from 'html2canvas';
+import 'whatwg-fetch';
+import * as asyncModule from '../../util/asyncModule';
 import Group from './Group';
 
 
@@ -41,8 +45,18 @@ export default class GroupBoard extends React.Component {
         this.setState({sliderVal : value});
     };
 
-    handleCreateGroup = (event, value) => {
+    handleCreateGroup = () => {
         this.props.createGroup(this.state.sliderVal);
+    };
+
+    handleCapture = () => {
+        const element = document.getElementById('groups');
+        const target = document.getElementById('download');
+        html2canvas(element).then(function(canvas) {
+            const imgData = canvas.toDataURL();
+            target.href = imgData;
+            target.click();
+        });
     };
 
     render () {
@@ -74,9 +88,20 @@ export default class GroupBoard extends React.Component {
                             fullWidth={true}
                             onClick={this.handleCreateGroup}
                         />
+                        <a id="download" href="#" download="capture.png"></a>
+                        {(() => {
+                            if (this.props.groups.length)
+                                return <RaisedButton
+                                        label="Save Capture !"
+                                        fullWidth={true}
+                                        style={{marginTop: 10}}
+                                        icon={<FileFileDownload />}
+                                        onClick={this.handleCapture}
+                                    />;
+                        })()}
                     </Card>
                 </div>
-                <div style={groupStyle}>
+                <div style={groupStyle} id="groups">
                     {this.props.groups.map((group, key) =>
                         <Group key={key} group={group}/>
                     )}

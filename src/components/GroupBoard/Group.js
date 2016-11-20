@@ -1,12 +1,13 @@
 import React from 'react';
 import Card from 'material-ui/Card';
-
+import Draggable from 'react-draggable';
 
 
 const style = {
     paddingTop: 20,
     paddingLeft: 50,
-    display: 'flex'
+    display: 'flex',
+    zIndex: 0
 };
 
 const colors = [
@@ -33,22 +34,25 @@ export default class Group extends React.Component {
     }
 
     render () {
-        let members = [];
-        for (let i=0; i < this.props.group.length; i++) {
-            members.push(<p key={i}><span style={{paddingLeft: 10}}>{this.props.group[i].name}</span></p>);
-        }
-
-        let colorIndex = Math.floor( Math.random() * (colors.length) );
 
         return (
-            <div>
-                <div style={style}>
-                    <Card style={{width: 100, backgroundColor: colors[colorIndex]}}>
-                        <div>
-                            {members}
-                        </div>
-                    </Card>
-                </div>
+            <div style={style}>
+                <Card
+                    style={{
+                        width: 100,
+                        backgroundColor: colors[Math.floor(Math.random() * (colors.length))],
+                    }}
+                >
+                    {
+                        Array.from(this.props.group).map((member, key) =>
+                            <Draggable  key={key}>
+                                <div>
+                                    <p><span style={{paddingLeft: 10}}>{member.name}</span></p>
+                                </div>
+                            </Draggable>
+                        )
+                    }
+                </Card>
             </div>
         );
     }

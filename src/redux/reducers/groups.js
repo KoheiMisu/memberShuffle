@@ -1,14 +1,27 @@
-const shuffle = (array) => {
-    let n = array.length, t, i;
+import _ from 'underscore';
+
+export const shuffle = (data) => {
+
+    let members = filterMembers(data);
+
+    let n = members.length, t, i;
 
     while (n) {
         i = Math.floor(Math.random() * n--);
-        t = array[n];
-        array[n] = array[i];
-        array[i] = t;
+        t = members[n];
+        members[n] = members[i];
+        members[i] = t;
     }
 
-    return array;
+    return members;
+};
+
+export const filterMembers = (members) => {
+    let result = _.filter(members, (member) => {
+        return member.present;
+    });
+
+    return result;
 };
 
 const groups = (state = [], action) => {

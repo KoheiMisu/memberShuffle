@@ -1,30 +1,35 @@
 import React, { PropTypes } from 'react';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
 import Toggle from 'material-ui/Toggle';
+import {DeleteButtonContainer} from './Button';
 
-const styles = {
-    toggle: {
-        marginBottom: 16,
-    }
-};
 
 export default class Member extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props, context) {
+        super(props, context);
     }
+
+    handleToggle = (event, value) => {
+        this.props.changePresent(this.props.member);
+    };
 
     render () {
         return (
             <TableRow>
                 <TableRowColumn>
-                    {this.props.name}
+                    {this.props.member.name}
                 </TableRowColumn>
                 <TableRowColumn>
                     <Toggle
                         label=""
-                        defaultToggled={true}
-                        style={styles.toggle}
+                        toggled={this.props.member.present}
+                        onToggle={this.handleToggle}
+                    />
+                </TableRowColumn>
+                <TableRowColumn>
+                    <DeleteButtonContainer
+                        member={this.props.member}
                     />
                 </TableRowColumn>
             </TableRow>
