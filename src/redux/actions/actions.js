@@ -41,6 +41,13 @@ const addError = (message) => {
     };
 };
 
+const _deleteMember = (member) => {
+    return {
+        type: ActionTypes.DELETE_MEMBER,
+        member
+    };
+};
+
 export const fetchMembers = () => {
     const cId = getCId();
 
@@ -69,7 +76,7 @@ export const addMembers = (name) => {
         }
     }
 
-    const queryString = qs.parse(location.search);
+    const queryString = getQueryString();
 
     const data = new FormData();
     data.append("cId", queryString['cId']);
@@ -97,7 +104,7 @@ export const addMembers = (name) => {
 };
 
 export const changePresents = (member) => {
-    const queryString = qs.parse(location.search);
+    const queryString = getQueryString();
 
     const data = new FormData();
     data.append("cId", queryString['cId']);
@@ -120,6 +127,31 @@ export const changePresents = (member) => {
     }
 };
 
+export const deleteMember = (member) => {
+    const queryString = getQueryString();
+
+    const data = new FormData();
+    data.append("cId", queryString['cId']);
+    data.append("name", member.name);
+    data.append("present", !member.present);
+
+    return (dispatch) => {
+        return fetch(`${Env.HOST}/api/v1/members`, {
+                mode: 'cors',
+                method: 'Delete',
+                body: data
+            })
+            .then(asyncModule.checkStatus)
+            .then(asyncModule.parseJSON)
+            .catch((error) => {
+                console.log('request failed', error)
+            })
+            .then((data) => {
+                dispatch(_deleteMember(data));
+            })
+    }
+};
+
 
 const setCollectionId = (cId) => {
     let param = `?cId=${cId}`;
@@ -127,7 +159,7 @@ const setCollectionId = (cId) => {
 };
 
 const getCId = () => {
-    const queryString = qs.parse(location.search);
+    const queryString = getQueryString();
 
     if ('cId' in queryString) {
         return queryString['cId'];
@@ -138,3 +170,7 @@ const getCId = () => {
     setCollectionId(cId);
     return cId;
 };
+
+const getQueryString = () => {
+    return qs.parse(location.search);
+}

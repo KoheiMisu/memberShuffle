@@ -4,8 +4,6 @@ import {Card, CardHeader} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import Member from './Member';
 
-
-
 const style = {
     paddingLeft: 50,
     width: 500,
@@ -51,6 +49,7 @@ export default class MemberBoard extends React.Component {
                                 <TableRow>
                                     <TableHeaderColumn>Name</TableHeaderColumn>
                                     <TableHeaderColumn>absent or present</TableHeaderColumn>
+                                    <TableHeaderColumn>operation</TableHeaderColumn>
                                 </TableRow>
                             </TableHeader>
                             <TableBody

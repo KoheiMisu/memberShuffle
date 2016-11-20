@@ -20,7 +20,6 @@ export class Root extends React.Component {
             </MuiThemeProvider>
         );
     }
-
 };
 
 // Wrap the component to inject dispatch and state into it

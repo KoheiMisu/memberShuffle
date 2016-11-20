@@ -1,12 +1,8 @@
 import React, { PropTypes } from 'react';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
 import Toggle from 'material-ui/Toggle';
+import {DeleteButtonContainer} from './Button';
 
-const styles = {
-    toggle: {
-        marginBottom: 16,
-    }
-};
 
 export default class Member extends React.Component {
 
@@ -28,8 +24,12 @@ export default class Member extends React.Component {
                     <Toggle
                         label=""
                         toggled={this.props.member.present}
-                        style={styles.toggle}
                         onToggle={this.handleToggle}
+                    />
+                </TableRowColumn>
+                <TableRowColumn>
+                    <DeleteButtonContainer
+                        member={this.props.member}
                     />
                 </TableRowColumn>
             </TableRow>

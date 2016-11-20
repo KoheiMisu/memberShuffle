@@ -52,15 +52,6 @@ export class Shuffle extends React.Component {
     }
 }
 
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         addMember(name) {
-//             dispatch(addMember(name));
-//         }
-//     }
-// }
-
-
 function mapStateToProps(state) {
     return {
         members: state.members,

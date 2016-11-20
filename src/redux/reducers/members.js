@@ -25,6 +25,12 @@ const members = (state = [], action) => {
                 return member;
             });
 
+        case 'DELETE_MEMBER':
+
+            return _.filter(state, (member) => {
+                return member.name !== action.member.name;
+            });
+
         default:
             return state
     }
