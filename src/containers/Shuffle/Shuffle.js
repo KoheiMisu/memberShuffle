@@ -2,7 +2,8 @@ import React from 'react';
 import MemberBoard from '../../components/MemberBoard/MemberBoard';
 import GroupBoard from '../../components/GroupBoard/GroupBoard';
 import { connect } from 'react-redux';
-import { addMembers, fetchMembers, divideMember, changePresents} from '../../redux/actions/actions'
+import { addMembers, fetchMembers, divideMember, changePresents} from '../../redux/actions/actions';
+import { Page, Row, Column } from 'hedron';
 
 
 const style = {
@@ -34,20 +35,24 @@ export class Shuffle extends React.Component {
 
     render () {
         return (
-            <div>
-                <div style={style}>
-                    <MemberBoard
-                        addMember={this.addMember}
-                        changePresent={this.changePresent}
-                        members={this.props.members}
-                        inputError={this.props.inputError}
-                    />
-                    <GroupBoard
-                        createGroup={this.createGroup}
-                        groups={this.props.groups}
-                    />
+                <div>
+                    <Row>
+                        <Column sm={6}>
+                            <MemberBoard
+                                addMember={this.addMember}
+                                changePresent={this.changePresent}
+                                members={this.props.members}
+                                inputError={this.props.inputError}
+                            />
+                        </Column>
+                        <Column sm={6}>
+                            <GroupBoard
+                                createGroup={this.createGroup}
+                                groups={this.props.groups}
+                            />
+                        </Column>
+                    </Row>
                 </div>
-            </div>
         );
     }
 }

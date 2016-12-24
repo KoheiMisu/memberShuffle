@@ -3,6 +3,7 @@ import {Table, TableBody, TableRow, TableHeader, TableHeaderColumn} from 'materi
 import {Card, CardHeader} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import Member from './Member';
+import { Page, Row, Column } from 'hedron';
 
 const style = {
     paddingLeft: 50,
@@ -32,41 +33,39 @@ export default class MemberBoard extends React.Component {
     render () {
         return (
             <div>
-                <div style={style}>
-                    <Card>
-                        <CardHeader
-                            title="Lunch Members"
-                        />
-                        <TextField
-                            onKeyPress={this.handleAddMember}
-                            hintText="Input And Press Enter!"
-                            floatingLabelText="Add Member"
-                            errorText={this.props.inputError}
-                            style={inputStyle}
-                        />
-                        <Table>
-                            <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-                                <TableRow>
-                                    <TableHeaderColumn>Name</TableHeaderColumn>
-                                    <TableHeaderColumn>absent or present</TableHeaderColumn>
-                                    <TableHeaderColumn>operation</TableHeaderColumn>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody
-                                showRowHover={true}
-                                displayRowCheckbox={false}
-                            >
-                                {this.props.members.map((member, key) =>
-                                    <Member
-                                        key={key}
-                                        member={member}
-                                        changePresent = {this.props.changePresent}
-                                    />
-                                )}
-                            </TableBody>
-                        </Table>
-                    </Card>
-                </div>
+                <Card>
+                    <CardHeader
+                        title="Lunch Members"
+                    />
+                    <TextField
+                        onKeyPress={this.handleAddMember}
+                        hintText="Input And Press Enter!"
+                        floatingLabelText="Add Member"
+                        errorText={this.props.inputError}
+                        style={inputStyle}
+                    />
+                    <Table>
+                        <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+                            <TableRow>
+                                <TableHeaderColumn>Name</TableHeaderColumn>
+                                <TableHeaderColumn>absent or present</TableHeaderColumn>
+                                <TableHeaderColumn>operation</TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody
+                            showRowHover={true}
+                            displayRowCheckbox={false}
+                        >
+                            {this.props.members.map((member, key) =>
+                                <Member
+                                    key={key}
+                                    member={member}
+                                    changePresent = {this.props.changePresent}
+                                />
+                            )}
+                        </TableBody>
+                    </Table>
+                </Card>
             </div>
         );
     }

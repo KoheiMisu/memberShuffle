@@ -8,13 +8,6 @@ import 'whatwg-fetch';
 import * as asyncModule from '../../util/asyncModule';
 import Group from './Group';
 
-
-
-const style = {
-    paddingLeft: 50,
-    display: 'flex'
-};
-
 const groupStyle = {
     display: 'flex',
     flexWrap: 'wrap',
@@ -23,10 +16,6 @@ const groupStyle = {
 const textStyle = {
     color: '#4689FF',
     fontSize: 20
-};
-
-const cardStyle = {
-    width: 500,
 };
 
 const inputStyle = {
@@ -62,45 +51,43 @@ export default class GroupBoard extends React.Component {
     render () {
         return (
             <div>
-                <div style={style}>
-                    <Card style={cardStyle}>
-                        <CardHeader
-                            title="Determine the number of people"
+                <Card>
+                    <CardHeader
+                        title="Determine the number of people"
+                    />
+                    <div style={inputStyle}>
+                        <Slider
+                            min={1}
+                            max={10}
+                            step={1}
+                            value={this.state.sliderVal}
+                            onChange={this.handleSlider}
+                            style={{width: 400}}
                         />
-                        <div style={inputStyle}>
-                            <Slider
-                                min={1}
-                                max={10}
-                                step={1}
-                                value={this.state.sliderVal}
-                                onChange={this.handleSlider}
-                                style={{width: 400}}
-                            />
-                            <p>
-                                <span>{'One group will be composed of '}</span>
-                                <span style={textStyle}>{this.state.sliderVal}</span>
-                                <span>{' person'}</span>
-                            </p>
-                        </div>
-                        <RaisedButton
-                            label="Create Group !"
-                            primary={true}
-                            fullWidth={true}
-                            onClick={this.handleCreateGroup}
-                        />
-                        <a id="download" href="#" download="capture.png"></a>
-                        {(() => {
-                            if (this.props.groups.length)
-                                return <RaisedButton
-                                        label="Save Capture !"
-                                        fullWidth={true}
-                                        style={{marginTop: 10}}
-                                        icon={<FileFileDownload />}
-                                        onClick={this.handleCapture}
-                                    />;
-                        })()}
-                    </Card>
-                </div>
+                        <p>
+                            <span>{'One group will be composed of '}</span>
+                            <span style={textStyle}>{this.state.sliderVal}</span>
+                            <span>{' person'}</span>
+                        </p>
+                    </div>
+                    <RaisedButton
+                        label="Create Group !"
+                        primary={true}
+                        fullWidth={true}
+                        onClick={this.handleCreateGroup}
+                    />
+                    <a id="download" href="#" download="capture.png"></a>
+                    {(() => {
+                        if (this.props.groups.length)
+                            return <RaisedButton
+                                    label="Save Capture !"
+                                    fullWidth={true}
+                                    style={{marginTop: 10}}
+                                    icon={<FileFileDownload />}
+                                    onClick={this.handleCapture}
+                                />;
+                    })()}
+                </Card>
                 <div style={groupStyle} id="groups">
                     {this.props.groups.map((group, key) =>
                         <Group key={key} group={group}/>
